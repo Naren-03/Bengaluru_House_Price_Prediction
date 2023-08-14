@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{%load static%}
+    <title>Bengaluru Home Price Prediction</title>
+    <script src="{%static 'ml_script.js'%}"></script>
+	<link rel="stylesheet" href="{%static 'style.css'%}">
+</head>
+<body>
+<div class="img"></div>
+<div class="title">Check House Prices at Bengaluru </div>
+<form class="form" method="POST" action="{%url 'banglore_house_prediction:return_price'%}" >
+
+
+	{% csrf_token %}
+	<h2>Area (Square Feet)</h2>
+    <input class="area"  type="text" id="uiSqft" class="floatLabel" name="Squareft" placeholder="Sqft" required>
+	<h2>BHK</h2>
+	<div class="switch-field" required>
+		<input type="radio" id="radio-bhk-1" name="uiBHK" value="1"/ required>
+		<label for="radio-bhk-1">1</label>
+		<input type="radio" id="radio-bhk-2" name="uiBHK" value="2"/ required>
+		<label for="radio-bhk-2">2</label>
+		<input type="radio" id="radio-bhk-3" name="uiBHK" value="3"/ required>
+		<label for="radio-bhk-3">3</label>
+		<input type="radio" id="radio-bhk-4" name="uiBHK" value="4"/ required>
+		<label for="radio-bhk-4">4</label>
+		<input type="radio" id="radio-bhk-5" name="uiBHK" value="5"/ required>
+		<label for="radio-bhk-5">5</label>
+	</div>
+	{% comment %} <form class="form"> {% endcomment %}
+		<h2>Bath</h2>
+		<div class="switch-field" >
+			<input type="radio" id="radio-bath-1" name="uiBathrooms" value="1"/ required>
+			<label for="radio-bath-1">1</label>
+			<input type="radio" id="radio-bath-2" name="uiBathrooms" value="2"/ required>
+			<label for="radio-bath-2">2</label>
+			<input type="radio" id="radio-bath-3" name="uiBathrooms" value="3"/ required>
+			<label for="radio-bath-3">3</label>
+			<input type="radio" id="radio-bath-4" name="uiBathrooms" value="4"/ required>
+			<label for="radio-bath-4">4</label>
+			<input type="radio" id="radio-bath-5" name="uiBathrooms" value="5"/ required>
+			<label for="radio-bath-5">5</label>
+		</div>
+		<h2>Location</h2>
+		<div>
+			<select class="location" name="loc" id="uiLocations" required>
+				<option value="" disabled="disabled" selected="selected" >Select Location</option>
+				{% for i in Data%}
+				<option>{{i}}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<button type="submit" class="my-button">Estimate Price</button>
+	</form>
+	<div id="uiEstimatedPrice" class="result">	<h3> House Price at <b>{{loc}}</b> with Area <b> {{area_sqft}}  </b> and <b>{{bhk}}</b> BHK <b>{{bath}}</b> Bathrooms is </h3>
+		<h1><b> {{Price}} Lakh</h1> </div>
+	</body>
+	</html>
